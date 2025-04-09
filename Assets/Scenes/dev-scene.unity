@@ -522,9 +522,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1017203489 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 3107273462269213839, guid: c7f6287b465e7694784bed809c93c37d, type: 3}
+--- !u!95 &1017203492 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 189392341851735281, guid: c7f6287b465e7694784bed809c93c37d, type: 3}
   m_PrefabInstance: {fileID: 4857196562948941533}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1528298804
@@ -760,13 +760,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1457168179968346417, guid: c7f6287b465e7694784bed809c93c37d, type: 3}
-      propertyPath: rb
+      propertyPath: animator
       value: 
-      objectReference: {fileID: 1017203489}
-    - target: {fileID: 1457168179968346417, guid: c7f6287b465e7694784bed809c93c37d, type: 3}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1017203492}
     - target: {fileID: 1774806181304568342, guid: c7f6287b465e7694784bed809c93c37d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3107273462269213839}
   - component: {fileID: 2701095074530371459}
   - component: {fileID: 1457168179968346417}
+  - component: {fileID: 189392341851735281}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -193,5 +194,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3510d0b1510702489f60df53a743f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  speed: 1
+  rb: {fileID: 3107273462269213839}
+  x_velocity: 0
+  speed: 3
+  looking_right: 1
+  jump_key: 32
+  jump_height: 7.5
+  is_ground: 1
+--- !u!95 &189392341851735281
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286618260127851874}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5a496cd036d34d4c8082439d9f94617, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
