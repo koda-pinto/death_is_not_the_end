@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class startgame : MonoBehaviour
+public class StartGame : MonoBehaviour
 {
     // // Start is called once before the first execution of Update after the MonoBehaviour is created
     // void Start()
@@ -15,9 +15,19 @@ public class startgame : MonoBehaviour
         
     // }
 
-    public void StartGame()
+    public void startGame()
     {
         SceneManager.LoadSceneAsync("Main");
+    }
+
+    public void StartOptions()
+    {
+        SceneManager.LoadSceneAsync("OptionsMenu");
+    }
+
+    public void StartTitlePage()
+    {
+        SceneManager.LoadSceneAsync("TitlePage");
     }
 
 }
