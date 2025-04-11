@@ -17,7 +17,7 @@ public class StartGame : MonoBehaviour
 
     public void startGame()
     {
-        SceneManager.LoadSceneAsync("Main");
+        SceneManager.LoadSceneAsync("Dev-scene");
     }
 
     public void StartOptions()
