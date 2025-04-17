@@ -1,4 +1,5 @@
-using UnityEngine;
+using UnityEngine; 
+using System.Collections;
 
 public class tPlayerMovement : MonoBehaviour
 {
@@ -8,29 +9,28 @@ public class tPlayerMovement : MonoBehaviour
     //create separate variable for key mappings to make binding customisable
     //potentially make variable private; check need for protection
     public float x_velocity;
-    public float speed = 3f;
-    public bool looking_right = true; //make private later
-
+    public float speed = 7f;
+    public bool looking_right = true; //make private later. hey why not now pointdexter?!
     public KeyCode jump_key = KeyCode.Space;
-    public float jump_height = 7.5f;
+    public KeyCode dash_key = KeyCode.LeftShift;
+    public float jump_height = 16f;
     public bool is_ground = true; //make private later
 
-    //speed and jump height need testing to adjust, access publicly from component menu
+    public float dashSpeed = 10f;
+    public float dashDuration = 0.2f;
 
+    private bool dashUsed;
+    private float originalGravityScale;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        originalGravityScale = rb.gravityScale;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //get walk input
         x_velocity = Input.GetAxisRaw("Horizontal");
 
-        //configure player's direction faced
         if (x_velocity < 0f && looking_right == true) {
             transform.eulerAngles = new Vector3(0f, -180f, 0f);
             looking_right = false;
@@ -40,13 +40,15 @@ public class tPlayerMovement : MonoBehaviour
             looking_right = true;
         }
 
-        //get jump input
         if (Input.GetKey(jump_key) && is_ground == true) {
-                Jump();
-                is_ground = false;
+            Jump();
+            is_ground = false;
         }
 
-        //configure walking animation
+        if (Input.GetKeyDown(dash_key) && (is_ground || !dashUsed)) {
+            Dash();
+        }
+
         if (Mathf.Abs(x_velocity) > 0f) 
             animator.SetBool("walk", true);
         else if (x_velocity == 0f)
@@ -55,13 +57,11 @@ public class tPlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //delta time keeps movement constant regardless of local framerate
-        //consider moving speed scalar outside of vector constuctor; compare execution?
-        transform.position += new Vector3(speed*x_velocity, 0f, 0f) * Time.fixedDeltaTime; 
+        transform.position += new Vector3(speed * x_velocity, 0f, 0f) * Time.fixedDeltaTime; 
     }
 
     void Jump() {
-        //creates upward vector and interacts via rigibody component
+        rb.gravityScale = originalGravityScale;
         Vector2 velocity = rb.linearVelocity;
         velocity.y = jump_height;
         rb.linearVelocity = velocity;
@@ -70,11 +70,24 @@ public class tPlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //check for collision with anything tagged as ground
         if (collision.gameObject.tag == "Ground") {
             is_ground = true;
             animator.SetBool("jump", false);
+            dashUsed = false;
         }
-        //create another check for vertical surfaces; edge collision tool
+    }
+
+    void Dash() {
+        float dir = looking_right ? 1f : -1f;
+        rb.gravityScale = 0f;
+        rb.linearVelocity = new Vector2(dir * dashSpeed, 0f);
+        if (!is_ground) dashUsed = true;
+        StartCoroutine(EndDash());
+    }
+
+    IEnumerator EndDash() {
+        yield return new WaitForSeconds(dashDuration);
+        rb.gravityScale = originalGravityScale;
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 }
